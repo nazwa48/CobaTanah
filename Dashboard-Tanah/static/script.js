@@ -53,10 +53,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
 
                 chart.update();
-
-                // Update Water Level
-                updateWaterLevel(data.water_level);
-                updateWaterTank(data.water_tank);
             });
     }
 
@@ -68,8 +64,8 @@ document.addEventListener("DOMContentLoaded", function () {
         let water = document.querySelector('.water');
         let text = document.querySelector('.water-text');
         if (water && text) {
-            water.style.height = level + "%";
-            text.innerText = level + "%";
+            water.style.height = (level * 10) + "%";
+            text.innerText = level;
         }
     }
 
@@ -100,46 +96,57 @@ document.addEventListener("DOMContentLoaded", function () {
             gaugeChart.update();
         }
 
-        // Simulasi Update Tiap 5 Detik
-        setInterval(() => {
-            let randomLevel = Math.floor(Math.random() * 100);
-            updateWaterTank(randomLevel);
-        }, 5000);
+        // ====== SLIDER WATER TANK ======
+        const waterTankSlider = document.getElementById("water-tank-slider");
+        const waterTankValue = document.getElementById("water-tank-slider-value");
+
+        waterTankSlider.addEventListener("input", function () {
+            let level = parseInt(this.value, 10);
+            updateWaterTank(level);
+            waterTankValue.textContent = level;
+        });
     } else {
         console.error("Canvas untuk Water Tank tidak ditemukan.");
     }
 
     // ====== GOOGLE MAPS ======
     function initMap() {
-    var lokasi = { lat: -7.983908, lng: 112.621391 }; // Contoh koordinat (ganti sesuai kebutuhan)
-    var map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 10,
-        center: lokasi,
-    });
-    var marker = new google.maps.Marker({
-        position: lokasi,
-        map: map,
-    });
-}
-
-
-    // ====== SLIDER INTERAKTIF ======
-    const sliders = [
-        { id: "water-level-slider", valueId: "water-level-value" },
-        { id: "dew-point-slider", valueId: "dew-point-value" },
-        { id: "co-slider", valueId: "co-value" },
-        { id: "humidity-slider", valueId: "humidity-value" },
-        { id: "temp-slider", valueId: "temp-value" },
-        { id: "water-tank-slider", valueId: "water-tank-value" },
-        { id: "sprinklers-slider", valueId: "sprinklers-value" }
-    ];
-
-    sliders.forEach(slider => {
-        let input = document.getElementById(slider.id);
-        let value = document.getElementById(slider.valueId);
-
-        input.addEventListener("input", function () {
-            value.textContent = input.value;
+        var lokasi = { lat: -7.983908, lng: 112.621391 }; // Contoh koordinat (ganti sesuai kebutuhan)
+        var map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 10,
+            center: lokasi,
         });
+        var marker = new google.maps.Marker({
+            position: lokasi,
+            map: map,
+        });
+    }
+
+    // ====== SLIDER WATER LEVEL ======
+    const waterLevelSlider = document.getElementById("water-level-slider");
+    const waterLevelValue = document.getElementById("water-level-slider-value");
+
+    waterLevelSlider.addEventListener("input", function () {
+        let level = parseInt(this.value, 10); // Konversi skala 1-10 langsung
+        updateWaterLevel(level);
+        waterLevelValue.textContent = level;
+    });
+
+    // ====== SLIDER TEMPERATURE & HUMIDITY ======
+    const tempSlider = document.getElementById("temp-slider");
+    const tempValue = document.getElementById("last-temp");
+    const tempSliderValue = document.getElementById("temp-slider-value");
+    const humiditySlider = document.getElementById("humidity-slider");
+    const humidityValue = document.getElementById("last-humidity");
+    const humiditySliderValue = document.getElementById("humidity-slider-value");
+
+    tempSlider.addEventListener("input", function () {
+        tempValue.textContent = this.value;
+        tempSliderValue.textContent = this.value;
+    });
+
+    humiditySlider.addEventListener("input", function () {
+        humidityValue.textContent = this.value;
+        humiditySliderValue.textContent = this.value;
     });
 });

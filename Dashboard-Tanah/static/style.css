@@ -16,41 +16,44 @@ body {
     transform: scale(1.05);
 }
 
-/* ====== WATER LEVEL DISPLAY ====== */
+/* ====== WATER LEVEL DISPLAY (LARGER CIRCULAR CONTAINER) ====== */
 .water-container {
     position: relative;
-    width: 120px;
-    height: 180px;
+    width: 230px;
+    height: 230px;
+    border-radius: 50%;
     border: 3px solid #000;
-    border-radius: 10px;
     overflow: hidden;
     background: lightgray;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin: 40px auto;
 }
-
 .water {
     position: absolute;
     bottom: 0;
     width: 100%;
+    height: 65%;
     background: blue;
     transition: height 1s ease-in-out;
-    animation: wave 2s infinite linear;
+    border-radius: 0; /* Ensure water remains level */
+}
+.water-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 @keyframes wave {
     0% { transform: translateY(2px); }
     50% { transform: translateY(-2px); }
     100% { transform: translateY(2px); }
-}
-
-.water-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* ====== WATER TANK GAUGE ====== */
@@ -158,3 +161,15 @@ span {
     margin-top: 5px;
 }
 
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.vertical-slider {
+    writing-mode: bt-lr;
+    appearance: slider-vertical;
+    height: 150px;
+    width: 20px;
+    margin: 10px;
+}
