@@ -71,18 +71,16 @@
                     <h5 class="card-title">Peta Lokasi</h5>
 <!--                    <div id="map" style="width: 100%; height: 400px;"></div>-->
 <!--<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>-->
-
                     <div id="map" style="height: 370px;"></div>
                     <script>
-    var map = L.map('map').setView([-7.983908, 112.621391], 10);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-    L.marker([-7.983908, 112.621391]).addTo(map)
-        .bindPopup('Lokasi Anda')
-        .openPopup();
-</script>
-
+                        var map = L.map('map').setView([-7.983908, 112.621391], 10);
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: '&copy; OpenStreetMap contributors'
+                        }).addTo(map);
+                        L.marker([-7.983908, 112.621391]).addTo(map)
+                            .bindPopup('Lokasi Anda')
+                            .openPopup();
+                    </script>
                 </div>
             </div>
         </div>

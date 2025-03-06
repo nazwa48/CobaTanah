@@ -1,0 +1,133 @@
+/* Main Card */
+.main-card {
+    width: 95vw;
+    min-height: 90vh;
+    padding: 20px;
+    background-color: #f5f5f5; /* Warna abu-abu muda */
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+}
+
+/* Wrapper untuk sub-card */
+.content-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+/* Sub Card */
+.sub-card {
+    width: 48%;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* Border Card */
+.border-card {
+    border: 2px solid #ccc; /* Warna abu-abu */
+    border-radius: 8px;
+    height: 100%;
+    background: #ffffff; /* Warna putih polos */
+    display: flex;
+    flex-direction: column; /* Agar konten berurutan secara vertikal */
+}
+
+/* Judul */
+.data-title {
+    background: #444; /* Warna solid abu-abu tua */
+    color: white; /* Warna teks putih */
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+/* Sensor Card */
+.sensor-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #333; /* Warna teks lebih gelap */
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* Baris Data */
+.sensor-data {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Label + Ikon */
+.sensor-label {
+    flex: 1;
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Jarak antara ikon dan teks */
+}
+
+/* Wrapper Nilai */
+.sensor-value-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Pusatkan angka */
+    flex-grow: 1;
+    min-width: 80px; /* Menyesuaikan agar proporsional */
+    position: relative;
+}
+
+/* Nilai Sensor */
+.sensor-value {
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    color: #222;
+    min-width: 50px;
+}
+
+/* Satuan */
+.sensor-unit {
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+    margin-left: auto; /* Memastikan satuan selalu di kanan */
+    padding-left: 8px; /* Beri sedikit jarak antara angka dan satuan */
+}
+
+/* Ukuran Ikon */
+.sensor-label i {
+    font-size: 18px;
+    color: #666; /* Warna ikon */
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+    .sub-card {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .sensor-label {
+        font-size: 14px;
+    }
+    .sensor-value {
+        font-size: 16px;
+        min-width: 50px;
+    }
+    .sensor-unit {
+        font-size: 14px;
+    }
+}

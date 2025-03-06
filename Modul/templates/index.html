@@ -6,10 +6,9 @@
     <title>Dashboard IoT Sumber Daya Air</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=3f5c97ba51c98cb66a97c7fd54f105fa&callback=initMap" async defer></script>
+    <!--Booststrap Icon-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/static/style.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
 
@@ -19,162 +18,120 @@
             <img src="static/tut.png" alt="Logo" width="40" height="40" class="me-2">
             Dashboard IoT
         </span>
+
+        <!-- Informasi Cuaca -->
+        <span id="weather-info" class="text-light d-flex align-items-center">
+            <i class="bi bi-geo-alt me-1"></i> <span id="city">-</span>  <!-- Logo Lokasi & Nama Kota -->
+            &nbsp; | &nbsp;
+            <i id="weather-icon" class="bi bi-cloud me-1"></i> <span id="weather-desc" class="ms-1">-</span>  <!-- Logo Cuaca & Deskripsi Cuaca -->
+            &nbsp; | &nbsp;
+            <i class="bi bi-thermometer-half me-1"></i> <span id="temperature">-</span>°C  <!-- Logo Suhu & Suhu -->
+            &nbsp; | &nbsp;
+           <i class="bi bi-wind me-1"></i> <span id="wind-speed">-</span> m/s  <!-- Logo Angin & Kecepatan Angin -->
+        </span>
     </div>
 </nav>
 
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Kelembapan Tanah</h5>
-                    <p class="card-text" id="soil-moisture">- %</p>
+<div class="main-card">
+    <div class="content-cards">
+        <div class="sub-card">
+            <div class="border-card">
+                <!-- Judul dengan Background -->
+                <div class="data-title">
+                    <h3 class="m-0">Data Mesin 1</h3>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">pH Tanah</h5>
-                    <p class="card-text" id="ph-level">-</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Curah Hujan</h5>
-                    <p class="card-text" id="rainfall">- mm</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Kecepatan Angin</h5>
-                    <p class="card-text" id="wind-speed">- km/h</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row mt-4">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Water Tank Level</h5>
-                    <canvas id="waterTankGauge"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Peta Lokasi</h5>
-<!--                    <div id="map" style="width: 100%; height: 400px;"></div>-->
-<!--<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>-->
-
-                    <div id="map" style="height: 370px;"></div>
-                    <script>
-    var map = L.map('map').setView([-7.983908, 112.621391], 10);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-    L.marker([-7.983908, 112.621391]).addTo(map)
-        .bindPopup('Lokasi Anda')
-        .openPopup();
-</script>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 d-flex flex-column">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">Value</h5>
-                    <p>Temperature: <span id="last-temp">-</span>°C</p>
-                    <p>Humidity: <span id="last-humidity">-</span>%</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Drip Irrigation System</h5>
-                    <p>Sprinklers: <button id="sprinklers-btn" class="btn btn-success rounded-circle">ON</button></p>
-                    <p>Sprinklers 1: <button id="sprinklers1-btn" class="btn btn-danger rounded-circle">OFF</button></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row mt-4">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Grafik Sensor</h5>
-                    <canvas id="sensorChart"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Water Level</h5>
-                    <div id="waterLevel" class="water-container">
-                        <div class="water" style="height: 0"></div>
-                        <span class="water-text">0</span>
+                <!-- Data Sensor dalam Card Terpisah -->
+                <div class="sensor-card">
+                    <div class="sensor-data">
+                        <span class="sensor-label">
+                             🌡 Suhu
+                        </span>
+                        <div class="sensor-value-wrapper">
+                            <span id="temp" class="sensor-value">-</span>
+                            <span class="sensor-unit">°C</span>
+                        </div>
+                    </div>
+                    <div class="sensor-data">
+                        <span class="sensor-label">
+                            💧 Kelembaban
+                        </span>
+                        <div class="sensor-value-wrapper">
+                            <span id="humidity" class="sensor-value">-</span>
+                            <span class="sensor-unit">%</span>
+                        </div>
+                    </div>
+                    <div class="sensor-data">
+                        <span class="sensor-label">
+                          📊 Tekanan
+                        </span>
+                        <div class="sensor-value-wrapper">
+                            <span id="air_pressure" class="sensor-value">-</span>
+                            <span class="sensor-unit">hPa</span>
+                        </div>
+                    </div>
+                    <div class="sensor-data">
+                        <span class="sensor-label">
+                           🏔  Ketinggian
+                        </span>
+                        <div class="sensor-value-wrapper">
+                            <span id="altitude" class="sensor-value">-</span>
+                            <span class="sensor-unit">m</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <<div class="row mt-4">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title text-center">Other Parameters</h5>
-                <div class="row justify-content-center">
-                    <div class="col-auto slider-container">
-                        <label for="water-level-slider">Water Level</label>
-                        <input type="range" min="0" max="10" value="0" id="water-level-slider" class="vertical-slider">
-                        <span id="water-level-slider-value">0</span>
+        <div class="sub-card">
+            <div class="border-card">
+                <div class="data-title">
+                    <h3 class="m-0"><u>Data Mesin 1</u></h3>
+                </div>
+                <div class="sensor-card">
+                    <div class="sensor-data">
+                       🌡 Suhu
+                        <span id="temp2" class="sensor-value fw-bold">-</span> °C
                     </div>
-                    <div class="col-auto slider-container">
-                        <label for="dew-point-slider">Dew Point</label>
-                        <input type="range" min="0" max="100" value="42" id="dew-point-slider" class="vertical-slider">
-                        <span id="dew-point-slider-value">42</span>
+                    <div class="sensor-data">
+                        💧 Kelembaban</span>
+                        <span id="humidity2" class="sensor-value fw-bold">-</span> %
                     </div>
-                    <div class="col-auto slider-container">
-                        <label for="co-slider">Carbon Monoxide</label>
-                        <input type="range" min="0" max="900" value="388" id="co-slider" class="vertical-slider">
-                        <span id="co-slider-value">388</span>
+                    <div class="sensor-data">
+                       📊 Tekanan
+                        <span id="air_pressure2" class="sensor-value fw-bold">-</span> hPa
                     </div>
-                    <div class="col-auto slider-container">
-                        <label for="humidity-slider">Humidity</label>
-                        <input type="range" min="0" max="100" value="0" id="humidity-slider" class="vertical-slider">
-                        <span id="humidity-slider-value">0</span>
+                    <div class="sensor-data">
+                       🏔  Ketinggian
+                        <span id="altitude2" class="sensor-value fw-bold">-</span> m
                     </div>
-                    <div class="col-auto slider-container">
-                        <label for="temp-slider">Temperature</label>
-                        <input type="range" min="0" max="100" value="0" id="temp-slider" class="vertical-slider">
-                        <span id="temp-slider-value">0</span>
-                    </div>
-                    <div class="col-auto slider-container">
-                        <label for="water-tank-slider">Watering Tank 1</label>
-                        <input type="range" min="0" max="100" value="64" id="water-tank-slider" class="vertical-slider">
-                        <span id="water-tank-slider-value">64</span>
-                    </div>
-                    <div class="col-auto slider-container">
-                        <label for="sprinklers-slider">Sprinklers</label>
-                        <input type="range" min="0" max="1" step="0.1" value="0.4" id="sprinklers-slider" class="vertical-slider">
-                        <span id="sprinklers-slider-value">0.4</span>
-                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sub-card">
+            <div class="border-card">
+                <div class="content">
+                    <h3>Suhu Ruangan</h3>
+                    <p id="wind_speed">
+                        <span class="temp-value">Loading</span>
+                        <span class="temp-unit">°C</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="sub-card">
+            <div class="border-card">
+                <div class="content">
+                    <h3>Suhu Ruangan</h3>
+                        <span class="temp-value">Loading</span>
+                        <span class="temp-unit">°C</span>
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-</div>
+
+
+
 
 <script src="/static/script.js"></script>
 </body>

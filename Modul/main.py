@@ -2,10 +2,8 @@ import asyncio
 asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 from microdot import Microdot, Response, send_file
-import random
-import json
 import requests
-import os
+import random
 
 app = Microdot()
 Response.default_content_type = 'application/json'
@@ -15,45 +13,56 @@ API_KEY = "3f5c97ba51c98cb66a97c7fd54f105fa"
 CITY = "Malang"
 WEATHER_URL = f"https://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={API_KEY}&units=metric"
 
-# Fungsi untuk mengambil data sensor
-def generate_sensor_data():
+@app.route('/api/weather')
+def get_weather(request):
     try:
         response = requests.get(WEATHER_URL)
-        weather_data = response.json()
+        print(response)
+        data = response.json()
+        print(data)
 
-        if "main" not in weather_data:
-            print("Error: API Cuaca Bermasalah!", weather_data)
-            return {}
-
-        data = {
-            "soil_moisture": round(random.uniform(10, 90), 2),
-            "ph_level": round(random.uniform(4, 9), 2),
-            "rainfall": round(random.uniform(0, 50), 2),
-            "wind_speed": round(random.uniform(0, 30), 2),
-            "temperature": weather_data["main"]["temp"],
-            "humidity": weather_data["main"]["humidity"]
+        # Ambil parameter yang diperlukan
+        weather_data = {
+            "city": data["name"],
+            "temperature": data["main"]["temp"],
+            "humidity": data["main"]["humidity"],
+            "wind_speed": data["wind"]["speed"],
+            "description": data["weather"][0]["description"]
         }
-
-        print("Data yang dikirim:", data)
-        return data
+        return weather_data
 
     except Exception as e:
-        print("Error mengambil data cuaca:", e)
-        return {}
+        return {"error": str(e)}, 500
 
+@app.route('/sensor/data')
+def get_sensor_data(request):
+    data = {
+        "temp": round(random.uniform(20, 35), 1),  # Suhu dalam °C
+        "humidity": round(random.uniform(40, 90), 1),  # Kelembaban dalam %
+        "air_pressure": round(random.uniform(980, 1050), 1),  # Tekanan dalam hPa
+        "altitude": round(random.uniform(0, 500), 1),  # Ketinggian dalam meter
 
+        "temp2": round(random.uniform(20, 35), 1),  # Suhu dalam °C
+        "humidity2": round(random.uniform(40, 90), 1),  # Kelembaban dalam %
+        "air_pressure2": round(random.uniform(980, 1050), 1),  # Tekanan dalam hPa
+        "altitude2": round(random.uniform(0, 500), 1)  # Ketinggian dalam meter
+    }
+    return data
 
 @app.route('/')
 def index(request):
     return send_file('templates/index.html')
 
-@app.route('/data')
-def data(request):
-    return Response(body=json.dumps(generate_sensor_data()), headers={'Content-Type': 'application/json'})
-
 @app.route('/static/<path:path>')
 def static_files(request, path):
     return send_file('static/' + path)
 
+
+
+@app.route('/sensor/temperature')
+def get_temperature(request):
+    temperature = round(random.uniform(20, 35), 1)  # Random suhu antara 20°C - 35°C
+    return {"temperature": temperature}
+
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5001, debug=True)
+    app.run(host='127.0.0.2', port=5001, debug=True)
