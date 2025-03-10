@@ -9,6 +9,7 @@
     <!--Booststrap Icon-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/static/style.css">
+
 </head>
 <body>
 
@@ -21,13 +22,13 @@
 
         <!-- Informasi Cuaca -->
         <span id="weather-info" class="text-light d-flex align-items-center">
-            <i class="bi bi-geo-alt me-1"></i> <span id="city">-</span>  <!-- Logo Lokasi & Nama Kota -->
+            <i class="bi bi-geo-alt me-1"></i> <span id="city">-</span>
             &nbsp; | &nbsp;
-            <i id="weather-icon" class="bi bi-cloud me-1"></i> <span id="weather-desc" class="ms-1">-</span>  <!-- Logo Cuaca & Deskripsi Cuaca -->
+            <i id="weather-icon" class="bi bi-cloud me-1"></i> <span id="weather-desc" class="ms-1">-</span>
             &nbsp; | &nbsp;
-            <i class="bi bi-thermometer-half me-1"></i> <span id="temperature">-</span>°C  <!-- Logo Suhu & Suhu -->
+            <i class="bi bi-thermometer-half me-1"></i> <span id="temperature">-</span>°C
             &nbsp; | &nbsp;
-           <i class="bi bi-wind me-1"></i> <span id="wind-speed">-</span> m/s  <!-- Logo Angin & Kecepatan Angin -->
+            <i class="bi bi-wind me-1"></i> <span id="wind-speed">-</span> m/s
         </span>
     </div>
 </nav>
@@ -47,6 +48,7 @@
             </div>
         </div>
     </div>
+
     <!-- Main Card untuk Data Mesin (Kanan) -->
     <div class="main-card">
         <div class="content-cards">
@@ -56,11 +58,25 @@
                     <div class="data-title">
                         <h3 class="m-0">Data Mesin 1</h3>
                     </div>
-                    <div class="sensor-card">
-                        <div class="sensor-data">🌡 Suhu: <span id="temp" class="sensor-value">-</span> °C</div>
-                        <div class="sensor-data">💧 Kelembaban: <span id="humidity" class="sensor-value">-</span> %</div>
-                        <div class="sensor-data">📊 Tekanan: <span id="air_pressure" class="sensor-value">-</span> hPa</div>
-                        <div class="sensor-data">🏔 Ketinggian: <span id="altitude" class="sensor-value">-</span> m</div>
+                   <div class="sensor-data">
+                        <div class="sensor-label">🌡 Suhu:</div>
+                        <span id="temp" class="sensor-value">28.1</span>
+                        <div class="sensor-unit">°C</div>
+                    </div>
+                    <div class="sensor-data">
+                        <div class="sensor-label">💧 Kelembaban:</div>
+                        <span id="humidity" class="sensor-value">40.5</span>
+                        <div class="sensor-unit">%</div>
+                    </div>
+                    <div class="sensor-data">
+                        <div class="sensor-label">📊 Tekanan:</div>
+                        <span id="air_pressure" class="sensor-value">-</span>
+                        <div class="sensor-unit">hPa</div>
+                    </div>
+                    <div class="sensor-data">
+                        <div class="sensor-label">🏔 Ketinggian:</div>
+                        <span id="altitude" class="sensor-value">430.7</span>
+                        <div class="sensor-unit">m</div>
                     </div>
                 </div>
             </div>
@@ -71,42 +87,55 @@
                     <div class="data-title">
                         <h3 class="m-0">Data Mesin 2</h3>
                     </div>
+                   <div class="sensor-data">
+                        <div class="sensor-label">🌡 Suhu:</div>
+                        <span id="temp2" class="sensor-value">28.1</span>
+                        <div class="sensor-unit">°C</div>
+                    </div>
+                    <div class="sensor-data">
+                        <div class="sensor-label">💧 Kelembaban:</div>
+                        <span id="humidity2" class="sensor-value">40.5</span>
+                        <div class="sensor-unit">%</div>
+                    </div>
+                    <div class="sensor-data">
+                        <div class="sensor-label">📊 Tekanan:</div>
+                        <span id="air_pressure2" class="sensor-value">-</span>
+                        <div class="sensor-unit">hPa</div>
+                    </div>
+                    <div class="sensor-data">
+                        <div class="sensor-label">🏔 Ketinggian:</div>
+                        <span id="altitude2" class="sensor-value">430.7</span>
+                        <div class="sensor-unit">m</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grafik Data Mesin 1 -->
+            <div class="sub-card">
+                <div class="border-card">
+                    <div class="data-title">
+                        <h3 class="m-0">Grafik Mesin 1</h3>
+                    </div>
                     <div class="sensor-card">
-                        <div class="sensor-data">🌡 Suhu: <span id="temp2" class="sensor-value">-</span> °C</div>
-                        <div class="sensor-data">💧 Kelembaban: <span id="humidity2" class="sensor-value">-</span> %</div>
-                        <div class="sensor-data">📊 Tekanan: <span id="air_pressure2" class="sensor-value">-</span> hPa</div>
-                        <div class="sensor-data">🏔 Ketinggian: <span id="altitude2" class="sensor-value">-</span> m</div>
+                        <canvas id="chartMesin1"></canvas>
                     </div>
                 </div>
             </div>
 
-            <!-- Data Mesin 3 -->
+            <!-- Grafik Data Mesin 2 -->
             <div class="sub-card">
                 <div class="border-card">
                     <div class="data-title">
-                        <h3 class="m-0">Suhu Ruangan</h3>
+                        <h3 class="m-0">Grafik Mesin 2</h3>
                     </div>
-                    <div class="content">
-                        <p>🌡 <span class="temp-value">Loading</span> °C</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Data Mesin 4 -->
-            <div class="sub-card">
-                <div class="border-card">
-                    <div class="data-title">
-                        <h3 class="m-0">Status Sensor</h3>
-                    </div>
-                    <div class="content">
-                        <p>📶 Sensor Aktif</p>
+                    <div class="sensor-card">
+                        <canvas id="chartMesin2"></canvas>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 <script src="/static/script.js"></script>
 </body>

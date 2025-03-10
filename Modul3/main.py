@@ -13,9 +13,6 @@ API_KEY = "3f5c97ba51c98cb66a97c7fd54f105fa"
 CITY = "Malang"
 WEATHER_URL = f"https://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={API_KEY}&units=metric"
 
-#API Flask
-FLASK_API_URL = "http://192.168.59.33:5000/api/bengkel"  # Sesuaikan dengan URL Flask kamu
-
 @app.route('/sensor/data')
 def get_sensor_data(request):
     data = {
@@ -62,37 +59,6 @@ def get_weather(request):
 def get_temperature(request):
     temperature = round(random.uniform(20, 35), 1)  # Random suhu antara 20°C - 35°C
     return {"temperature": temperature}
-
-#CHECK API DARI FLASK
-@app.route('/api/inventory')
-def get_inventory(request):
-    try:
-        response = requests.get(FLASK_API_URL)  # Mengambil data dari API Flask
-        data = response.json()  # Ubah ke format JSON
-        response.close()  # Tutup request
-
-        print("\n📦 Data dari Flask API:")
-        for item in data:
-            print(f"ID: {item['id']}, Kode: {item['kode_barang']}, Nama: {item['nama']}, Jumlah: {item['jumlah']}, Kondisi: {item['kondisi']}")
-
-        return data  # Mengembalikan data supaya bisa diakses di Microdot
-
-    except Exception as e:
-        print("❌ Error mengambil data:", e)
-        return {"error": str(e)}, 500
-
-#TAMPILKAN API dari FLASK
-@app.route('/api/inventory')
-def get_inventory(request):
-    try:
-        response = requests.get(FLASK_API_URL)  # Ambil dari Flask
-        data = response.json()  # Ubah ke JSON
-        response.close()  # Tutup request
-        return data  # Kirim ke frontend
-
-    except Exception as e:
-        return {"error": str(e)}, 500
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True)

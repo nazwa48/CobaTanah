@@ -146,24 +146,3 @@ async function fetchMachineData() {
     }
 }
 setInterval(fetchMachineData, 5000);
-
-// Data Inventaris
-async function fetchInventory() {
-    try {
-        const response = await fetch('/api/inventory');
-        const data = await response.json();
-
-        const inventoryList = document.getElementById("inventory-list");
-        inventoryList.innerHTML = "";
-
-        data.forEach(item => {
-            const listItem = document.createElement("li");
-            listItem.innerHTML = `📦 ${item.nama}: <strong>${item.jumlah}</strong>`;
-            inventoryList.appendChild(listItem);
-        });
-
-    } catch (error) {
-        console.error("❌ Error:", error);
-    }
-}
-setInterval(fetchInventory, 10000);

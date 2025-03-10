@@ -144,24 +144,3 @@
         font-size: 14px;
     }
 }
-
-
-/* ---------------------MODUL--------------------- */
-
-.main-container {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-}
-
-/* INVENTORY LAB RPL lebih kecil dan di kiri */
-.inventory-card {
-    flex: 1;
-    max-width: 300px;
-}
-
-/* Data Mesin lebih besar dan di kanan */
-.main-card {
-    flex: 2;
-}
-
