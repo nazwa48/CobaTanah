@@ -33,6 +33,35 @@ async function fetchWeather() {
 }
 setInterval(fetchWeather, 10000);
 
+
+function toggleDevice(device) {
+        let button = document.getElementById(`toggle-${device}`);
+        let statusCard = document.getElementById('status-card');
+        let statusText = document.getElementById('warning-title'); // Sesuai dengan elemen di HTML
+        let statusOutput = document.getElementById(`status-${device}`);
+
+        if (button.innerText === 'OFF') {
+            button.innerText = 'ON';
+            button.classList.add('on');
+            statusOutput.innerText = 'ON';
+
+            if (device === 'suara') {
+                statusCard.classList.add('warning');
+                statusText.innerHTML = '<strong>WARNING!!</strong>';
+            }
+        } else {
+            button.innerText = 'OFF';
+            button.classList.remove('on');
+            statusOutput.innerText = 'OFF';
+
+            if (device === 'suara') {
+                statusCard.classList.remove('warning');
+                statusText.innerHTML = 'Tidak ada peringatan';
+            }
+        }
+    }
+
+
 // Data Sensor
 function fetchSensorData() {
     fetch('/sensor/data')

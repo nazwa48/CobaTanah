@@ -14,7 +14,7 @@ CITY = "Malang"
 WEATHER_URL = f"https://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={API_KEY}&units=metric"
 
 #API Flask
-FLASK_API_URL = "http://192.168.59.33:5000/api/bengkel"  # Sesuaikan dengan URL Flask kamu
+FLASK_API_URL = "http://192.168.58.113:5002/api/bengkel"  # Sesuaikan dengan URL Flask kamu
 
 @app.route('/sensor/data')
 def get_sensor_data(request):
@@ -95,4 +95,4 @@ def get_inventory(request):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
